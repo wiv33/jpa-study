@@ -1,2 +1,4 @@
 rootProject.name = 'jpa-study'
 
+include("part01")
+
