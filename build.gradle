@@ -43,3 +43,10 @@ project(":part01") {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 }
+
+project(":part02-start") {
+    dependencies {
+        compile 'org.hibernate:hibernate-entitymanager:5.3.10.Final'
+        compileOnly 'com.h2database:h2:1.4.199'
+    }
+}
