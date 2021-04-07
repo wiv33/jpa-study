@@ -28,8 +28,9 @@ public class JpaMain {
             Member findMember = findMember(em);
             saveMember(em, findMember);
             System.out.println("=== after ===");
-            jpqlExec(em);
+            List<Member> members = jpqlExec(em);
 
+            members.forEach(System.out::println);
             Member res = findMember(em);
             System.out.println("res = " + res);
             tx.commit();
