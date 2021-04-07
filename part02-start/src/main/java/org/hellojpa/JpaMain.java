@@ -49,9 +49,7 @@ public class JpaMain {
         return findMember;
     }
     private static Member findMember(EntityManager em) {
-        Member findMember = em.find(Member.class, 1L);
-        System.out.println("findMember = " + findMember);
-        return findMember;
+        return em.find(Member.class, 1L);
     }
     private static void saveMember(EntityManager em, Member findMember) {
         Member result = Objects.isNull(findMember) ? newMember() : updateMember(findMember);
