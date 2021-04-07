@@ -119,8 +119,6 @@ public class JpaMain {
 //        member0_.id=?
 //findMember = Member{id=1, name='PS'}
 //=== after ===
-//Apr 07, 2021 11:49:53 PM org.hibernate.hql.internal.QueryTranslatorFactoryInitiator initiateService
-//INFO: HHH000397: Using ASTQueryTranslatorFactory
 //Hibernate:
 //    /* select
 //        m
