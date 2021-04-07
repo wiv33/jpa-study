@@ -105,7 +105,6 @@ public class JpaMain {
 
 }
 
-
 //=== before ===
 //Hibernate:
 //    select
@@ -116,8 +115,9 @@ public class JpaMain {
 //        Member member0_
 //    where
 //        member0_.id=?
-//findMember = Member{id=1, name='PS'}
 //=== after ===
+//Apr 07, 2021 11:59:55 PM org.hibernate.hql.internal.QueryTranslatorFactoryInitiator initiateService
+//INFO: HHH000397: Using ASTQueryTranslatorFactory
 //Hibernate:
 //    /* select
 //        m
@@ -167,5 +167,4 @@ public class JpaMain {
 //            member0_.name=?
 //            and member0_.id=?
 //Member{id=1, name='PS'}
-//findMember = Member{id=1, name='PS'}
 //res = Member{id=1, name='PS'}
