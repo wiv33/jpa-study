@@ -1,18 +1,19 @@
 package org.hellojpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-//@Table("USER")
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "NAME_AGE_UNIQUE", columnNames = {"NAME", "AGE"})
+})
 public class Member {
+
     @Id
     private Long id;
-//    @Column("USER_NAME")
+    @Column(nullable = false, name = "USER_NAME", length = 10)
     private String name;
+
     private int age;
 
     public Long getId() {
