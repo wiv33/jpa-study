@@ -1,5 +1,7 @@
 package org.hellojpa;
 
+import org.hibernate.FlushMode;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +35,8 @@ public class JpaMain {
             members.forEach(System.out::println);
             Member res = findMember(em);
             System.out.println("res = " + res);
+
+//            em.setFlushMode(FlushModeType.COMMIT);
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
