@@ -1,20 +1,42 @@
 package org.hellojpa;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(name = "NAME_AGE_UNIQUE", columnNames = {"NAME", "AGE"})
-})
+@Table
 public class Member {
 
     @Id
     private Long id;
-    @Column(nullable = false, name = "USER_NAME", length = 10)
+
+    @Column(name = "USER_NAME",
+            nullable = false,
+            length = 10)
     private String name;
 
-    private int age;
+    private Integer age;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate = new Date();
+
+    private LocalDate testLocalDate = LocalDate.now();
+
+    private LocalDateTime testLocalDateTime = LocalDateTime.now();
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    @Transient
+    private int temp;
+
+    @Lob
+    private String description;
 
     public Long getId() {
         return id;
@@ -32,33 +54,52 @@ public class Member {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public RoleType getRoleType() {
+        return roleType;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Member member = (Member) o;
-        return age == member.age && Objects.equals(id, member.id) && Objects.equals(name, member.name);
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age);
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public int getTemp() {
+        return temp;
+    }
+
+    public void setTemp(int temp) {
+        this.temp = temp;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 

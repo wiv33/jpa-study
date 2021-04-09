@@ -26,17 +26,13 @@ public class JpaMain {
         tx.begin();
 
         try {
-            System.out.println("=== before ===");
-            Member findMember = findMember(em);
-            saveMember(em, findMember);
-            System.out.println("=== after ===");
-            List<Member> members = jpqlExec(em);
 
-            members.forEach(System.out::println);
-            Member res = findMember(em);
-            System.out.println("res = " + res);
+            Member member = new Member();
+            member.setName("hello");
+            member.setId(1L);
+            member.setRoleType(RoleType.USER);
+            em.persist(member);
 
-//            em.setFlushMode(FlushModeType.COMMIT);
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
