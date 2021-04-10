@@ -10,6 +10,14 @@ import java.util.Date;
 public class Member {
 
     @Id
+    /*
+        GenerationType.AUTO
+
+        GenerationType.IDENTITY
+        GenerationType.SEQUENCE
+        GenerationType.TABLE
+     */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "USER_NAME",
