@@ -7,6 +7,10 @@ import java.util.Date;
 
 @Entity
 @Table
+@TableGenerator(name = "MEMBER_SEQ_GENERATOR",
+        table = "MY_SEQUENCES",
+        pkColumnValue = "MEMBER_SEQ",
+        allocationSize = 1)
 public class Member {
 
     @Id
@@ -17,7 +21,7 @@ public class Member {
         GenerationType.SEQUENCE
         GenerationType.TABLE
      */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
 
     @Column(name = "USER_NAME",
