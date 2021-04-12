@@ -13,6 +13,8 @@ import java.util.Date;
         allocationSize = 1)
 public class Member {
 
+    private final LocalDate testLocalDate = LocalDate.now();
+    private final LocalDateTime testLocalDateTime = LocalDateTime.now();
     @Id
     /*
         GenerationType.AUTO
@@ -23,24 +25,15 @@ public class Member {
      */
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
-
     @Column(name = "USER_NAME",
             nullable = false,
             length = 10)
     private String name;
-
     private Integer age;
-
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate = new Date();
-
-    private LocalDate testLocalDate = LocalDate.now();
-
-    private LocalDateTime testLocalDateTime = LocalDateTime.now();
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
