@@ -1,4 +1,4 @@
-package org.psawesome.domain;
+package org.psawesome;
 
 /**
  * @author pilseong.ko

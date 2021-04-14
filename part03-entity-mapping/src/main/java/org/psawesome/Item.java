@@ -1,4 +1,4 @@
-package org.psawesome.domain;
+package org.psawesome;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

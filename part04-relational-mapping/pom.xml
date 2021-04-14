@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.psawesome</groupId>
-    <artifactId>part03-entity-mapping</artifactId>
+    <artifactId>part04-relational-mapping</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -38,6 +38,13 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
