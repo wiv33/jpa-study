@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.concurrent.locks.Lock;
 
 /**
  * @author pilseong.ko
@@ -25,12 +26,24 @@ public class JpaMain {
             member.setName("MemberName");
             em.persist(member);
 
+            Locker locker = new Locker();
+            locker.setName("locker!");
+            locker.setMember(member);
+            member.setLocker(locker);
 
-            Team team = new Team();
-            team.setName("teamName");
-            team.getMember().add(member);
+            em.persist(locker);
 
-            em.persist(team);
+            em.flush();
+            em.clear();
+
+            Member member1 = em.find(Member.class, 1L);
+            System.out.println("==============================");
+
+            System.out.println("member.getLocker null check : " + (member1.getLocker() == null));
+            String name = member1.getLocker()
+                               .getName();
+            System.out.println("name = " + name);
+
 
             tx.commit();
         } catch (Exception e) {

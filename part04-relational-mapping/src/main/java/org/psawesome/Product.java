@@ -1,3 +1,4 @@
+/*
 package org.psawesome;
 
 import javax.persistence.Column;
@@ -8,9 +9,11 @@ import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * @author pilseong.ko
- */
+ *//*
+
 @Entity
 public class Product {
 
@@ -23,3 +26,4 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Member> members = new ArrayList<>();
 }
+*/

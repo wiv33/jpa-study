@@ -1,3 +1,4 @@
+/*
 package org.psawesome;
 
 import lombok.Data;
@@ -10,9 +11,11 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * @author pilseong.ko
- */
+ *//*
+
 @Data
 @Entity
 public class Team {
@@ -26,3 +29,4 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 }
+*/
