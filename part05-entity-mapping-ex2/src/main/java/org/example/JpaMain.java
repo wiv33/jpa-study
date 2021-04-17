@@ -1,3 +1,5 @@
+package org.example;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -18,8 +20,8 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Order order = em.find(Order.class, 1L);
-            Member memberId1 = order.getMember();
+//            Order order = em.find(Order.class, 1L);
+//            Member memberId1 = order.getMember();
 
             tx.commit();
         } catch (Exception e) {

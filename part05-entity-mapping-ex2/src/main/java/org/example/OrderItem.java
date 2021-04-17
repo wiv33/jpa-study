@@ -1,3 +1,5 @@
+package org.example;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +23,7 @@ public class OrderItem {
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
 

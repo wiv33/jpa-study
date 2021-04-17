@@ -1,16 +1,12 @@
+package org.example;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author pilseong.ko
@@ -29,6 +25,13 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
 
