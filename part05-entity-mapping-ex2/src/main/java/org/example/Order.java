@@ -22,15 +22,15 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;

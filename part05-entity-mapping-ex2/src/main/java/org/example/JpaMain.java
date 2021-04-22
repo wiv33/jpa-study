@@ -20,8 +20,26 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Order order = em.find(Order.class, 1L);
-//            Member memberId1 = order.getMember();
+            Member savedMember = new Member();
+            savedMember.setCity("sdfsdf");
+            savedMember.setName("psdf");
+
+            Order savedOrder = new Order();
+            savedOrder.setMember(savedMember);
+
+            em.persist(savedMember);
+            em.persist(savedOrder);
+
+            em.flush();
+            em.clear();
+
+            //             Order order = em.find(Order.class, 2L);
+            em.createQuery("select o from Order as o")
+              .getResultList().forEach(System.out::println);
+
+            System.out.println("-===============================");
+            //            Member memberId1 = order.getMember();
+            //            System.out.println(memberId1.getCity());
 
             tx.commit();
         } catch (Exception e) {
