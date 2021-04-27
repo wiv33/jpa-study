@@ -43,14 +43,14 @@ public class NumTest {
 
     @Test
     void testGetCount2() {
-        int count2 = getCount2(77770, 77, 2, 100);
-        System.out.println("count2 = " + count2);
+        int count2 = getCount2(77770, 77, 100);
+        assertEquals(3, count2);
     }
 
     @Test
     void testCount() {
         assertEquals(31, getCount(77770, 77780, 77));
-        assertEquals(31, getCount(77770, 77780, 777));
+        assertEquals(2, getCount(77770, 77771, 777));
     }
 
     private int getCount(int start, int end, int target) {
@@ -58,22 +58,22 @@ public class NumTest {
         int targetSize = 자리수_구하기(target);
         int 십의_승수_값 = 십의_승수(targetSize);
         for (int i = start; i < end; i++) {
-            totalCount += getCount2(i, target, targetSize, 십의_승수_값);
+            totalCount += getCount2(i, target, 십의_승수_값);
         }
         return totalCount;
     }
 
-    private int getCount2(int field, int target, int targetSize, int 십의_승수_값) {
+    private int getCount2(int field, int target, int 십의_승수_값) {
         int fieldSize = 자리수_구하기(field);
         int temp = field;
         int count = 0;
         for (int j = 0; j < fieldSize; j++) {
-            System.out.println("temp =  : " + temp);
+            //            System.out.println("temp =  : " + temp);
             int mod = temp % 십의_승수_값;
             if (target == mod) {
                 count++;
             }
-            System.out.println("mod = " + mod);
+            //            System.out.println("mod = " + mod);
             temp = temp / 10;
         }
         return count;
