@@ -1,4 +1,3 @@
 rootProject.name = 'jpa-study'
 
 include("part01", "part10-query-dsl")
-
