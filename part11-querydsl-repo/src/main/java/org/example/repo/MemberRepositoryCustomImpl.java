@@ -1,10 +1,21 @@
 package org.example.repo;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.example.dto.MemberSearchCondition;
 import org.example.dto.MemberTeamDto;
 import org.example.dto.QMemberTeamDto;
+import org.example.entity.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -27,7 +38,6 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 
     @Override
     public List<MemberTeamDto> search(MemberSearchCondition condition) {
-        System.out.println("MemberRepositoryCustomImpl.search");
         return queryFactory.select(new QMemberTeamDto(member.id.as("memberId"),
                                                       member.username,
                                                       member.age,
@@ -40,6 +50,71 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
                                   ageGoe(condition.getAgeGoe()),
                                   ageLoe(condition.getAgeLoe()))
                            .fetch();
+    }
+
+    @Override
+    public Page<MemberTeamDto> searchPageSimple(MemberSearchCondition condition, Pageable pageable) {
+        QueryResults<MemberTeamDto> queryResults = queryFactory
+                .select(new QMemberTeamDto(member.id.as("memberId"),
+                                           member.username,
+                                           member.age,
+                                           team.id.as("teamId"),
+                                           team.name.as("teamName")))
+                .from(member)
+                .leftJoin(member.team, team)
+                .where(usernameEq(condition.getUsername()),
+                       teamNameEq(condition.getTeamName()),
+                       ageGoe(condition.getAgeGoe()),
+                       ageLoe(condition.getAgeLoe()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        List<MemberTeamDto> content = queryResults.getResults();
+        long total = queryResults.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public Page<MemberTeamDto> searchPageComplex(MemberSearchCondition condition, Pageable pageable) {
+        List<MemberTeamDto> content = queryFactory
+                .select(new QMemberTeamDto(member.id.as("memberId"),
+                                           member.username,
+                                           member.age,
+                                           team.id.as("teamId"),
+                                           team.name.as("teamName")))
+                .from(member)
+                .leftJoin(member.team, team)
+                .where(usernameEq(condition.getUsername()),
+                       teamNameEq(condition.getTeamName()),
+                       ageGoe(condition.getAgeGoe()),
+                       ageLoe(condition.getAgeLoe()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Member> countQuery = queryFactory
+                .selectFrom(member)
+                .leftJoin(member.team, team)
+                .where(usernameEq(condition.getUsername()),
+                       teamNameEq(condition.getTeamName()),
+                       ageGoe(condition.getAgeGoe()),
+                       ageLoe(condition.getAgeLoe()));
+
+        //        return new PageImpl<>(content, pageable, total);
+        return PageableExecutionUtils.getPage(content, pageable, () -> countQuery.fetchCount());
+    }
+
+    @Override
+    public List<Member> sortMember(Pageable pageable) {
+        JPAQuery<Member> query = queryFactory.selectFrom(member);
+
+        for (Sort.Order order : pageable.getSort()) {
+            PathBuilder<Member> pathBuilder = new PathBuilder<>(member.getType(), member.getMetadata());
+            query.orderBy(new OrderSpecifier(order.isAscending() ? Order.ASC : Order.DESC, pathBuilder.get(order.getProperty())));
+        }
+
+        return query.fetch();
     }
 
     private BooleanExpression usernameEq(String username) {
