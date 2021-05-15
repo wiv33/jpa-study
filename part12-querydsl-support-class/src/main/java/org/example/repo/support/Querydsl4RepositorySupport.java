@@ -84,5 +84,4 @@ public abstract class Querydsl4RepositorySupport<T> {
         return PageableExecutionUtils.getPage(content, pageable, countResult::fetchCount);
     }
 
-    //    protected Page<T> applyPagination(Pageable pageable, Function<JPAQueryFactory, JPAQuery<T>> contentQuery)
 }
