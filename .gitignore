@@ -64,7 +64,6 @@ hs_err_pid*
 .idea/**/gradle.xml
 .idea/**/libraries
 .idea
-.gradle
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -116,6 +115,9 @@ fabric.properties
 .gradle
 **/build/
 !part01/src/**/build/
+gradle
+gradlew
+gradlew.bat
 
 # Ignore Gradle GUI config
 gradle-app.setting
